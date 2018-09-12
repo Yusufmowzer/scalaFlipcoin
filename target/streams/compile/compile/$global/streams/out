@@ -1,4 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/yusuf/jsanders_scala_game/src/main/scala/CoinFlipUtils.scala:27:105: Missing conversion operator in '%'; use %% for literal %, %n for newline[0m
-[0m[[0m[31merror[0m] [0m[0m    println(f" Win Percentage: ${(gameState.numCorrect.toFloat/gameState.numFlips.toFloat)*100.00}%1.2f %")[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/yusuf/jsanders_scala_game/src/main/scala/CoinFlip.scala:59:7: could not optimize @tailrec annotated method mainLoop: it contains a recursive call not in tail position[0m
+[0m[[0m[31merror[0m] [0m[0m      winPercentage(gameState)[0m
+[0m[[0m[31merror[0m] [0m[0m      ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
