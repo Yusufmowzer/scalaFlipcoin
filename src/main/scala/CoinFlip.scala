@@ -13,7 +13,7 @@ object CoinFlip extends App {
   print(Console.BOLD)
   print("         - Welcome -           ")
   print(Console.RESET)
-  println()
+  println("\n")
   homeScreen()
   println()
   print(Console.RED_B)
@@ -25,65 +25,82 @@ object CoinFlip extends App {
 
     val userInput = BestOf10(gameSelect, gameState)
 
-    // handle the result
-    userInput match {
-      case "H" | "T" => {
-        val coinTossResult = tossCoin(random)
-        val newNumFlips = gameState.numFlips + 1
-        if (userInput == coinTossResult) {
-          val newNumCorrect = gameState.numCorrect + 1
-          val newGameState = gameState.copy(numFlips = newNumFlips, numCorrect = newNumCorrect)
-          printGameState(printableFlipResult(coinTossResult), newGameState, "Awesome")
-          mainLoop(newGameState, random, gameSelect)
-        } else {
-          val newGameState = gameState.copy(numFlips = newNumFlips)
-          printGameState(printableFlipResult(coinTossResult), newGameState, "You Suck")
-          mainLoop(newGameState, random, gameSelect)
+    (gameSelect, gameState.numFlips) match {
+      case (1|3, 10) ⇒ {
+        userInput match {
+          case "Q" ⇒ println("\n\nGoodBye!")
+          case "M" ⇒ {
+            println("\n_______________________________")
+            println("\n")
+            homeScreen()
+            selectScreen()
+          }
+          case _ ⇒ {
+            val newNumFlips = gameState.numFlips
+            val newNumCorrect = gameState.numCorrect
+            val gameThree = 3
+            println()
+            print(Console.BOLD)
+            print(Console.RED)
+            print(Console.REVERSED)
+            print("Incorrect input. Please try again")
+            print(Console.RESET)
+            println()
+            val newGameState = gameState.copy(numFlips = newNumFlips, numCorrect = newNumCorrect)
+            mainLoop(newGameState, random, gameThree)
+          }
         }
       }
-      case "Q" => {
-        if (gameSelect == 1 && gameState.numFlips == 10) println("\n\nGoodBye!")
-        else {
-          printGameOver()
-          printGameState(gameState)
-          winPercentage(gameState)
-          println("\nGoodBye!")
-          // return out of the recursion here
-        }
-      }
-
-      case "M" => {
-        if (gameSelect == 1 && gameState.numFlips == 10) {
-          println("\n_______________________________")
-          println("\n")
-          homeScreen()
-          selectScreen()
-        }
-        else {
-          printGameOver()
-          printGameState(gameState)
-          winPercentage(gameState)
-          println("_______________________________")
-          println("\n")
-          homeScreen()
-          selectScreen()
-        }
-      }
-
       case _ ⇒ {
-        val newNumFlips = gameState.numFlips
-        val newNumCorrect = gameState.numCorrect
-        println()
-        print(Console.BOLD)
-        print(Console.RED)
-        print(Console.REVERSED)
-        print("Incorrect input. Please try again")
-        print(Console.RESET)
-        println()
-        printGameState(gameState)
-        println("_______________________________")
-        val newGameState = gameState.copy(numFlips = newNumFlips, numCorrect = newNumCorrect)
-        mainLoop(newGameState, random, gameSelect)
+        userInput match {
+          case "H" | "T" => {
+            val coinTossResult = tossCoin(random)
+            val newNumFlips = gameState.numFlips + 1
+            if (userInput == coinTossResult) {
+              val newNumCorrect = gameState.numCorrect + 1
+              val newGameState = gameState.copy(numFlips = newNumFlips, numCorrect = newNumCorrect)
+              printGameState(printableFlipResult(coinTossResult), newGameState, "Awesome")
+              mainLoop(newGameState, random, gameSelect)
+            } else {
+              val newGameState = gameState.copy(numFlips = newNumFlips)
+              printGameState(printableFlipResult(coinTossResult), newGameState, "You Suck")
+              mainLoop(newGameState, random, gameSelect)
+            }
+          }
+          case "Q" => {
+            printGameOver()
+            printGameState(gameState)
+            winPercentage(gameState)
+            println("\nGoodBye!")
+            // return out of the recursion here
+          }
+
+          case "M" => {
+            printGameOver()
+            printGameState(gameState)
+            winPercentage(gameState)
+            println("_______________________________")
+            println("\n")
+            homeScreen()
+            selectScreen()
+          }
+
+          case _ ⇒ {
+            val newNumFlips = gameState.numFlips
+            val newNumCorrect = gameState.numCorrect
+            println()
+            print(Console.BOLD)
+            print(Console.RED)
+            print(Console.REVERSED)
+            print("Incorrect input. Please try again")
+            print(Console.RESET)
+            println()
+            printGameState(gameState)
+            println("_______________________________")
+            val newGameState = gameState.copy(numFlips = newNumFlips, numCorrect = newNumCorrect)
+            mainLoop(newGameState, random, gameSelect)
+          }
+        }
       }
     }
   }

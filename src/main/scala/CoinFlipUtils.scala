@@ -38,18 +38,16 @@ object CoinFlipUtils {
         mainLoop(s, r, userSelect.toInt)
       }
       case "Q" ⇒ {
-        println("\n\nGoodBye!")
         print(Console.RESET)
+        println("\n\nGoodBye!")
       }
       case _ ⇒ {
-        println()
         print(Console.BOLD)
         print(Console.RED)
         print(Console.REVERSED)
         print("Incorrect input. Please try again")
         print(Console.RESET)
-        println("\n\n")
-        homeScreen()
+        println()
         selectScreen()
       }
     }
@@ -62,6 +60,10 @@ object CoinFlipUtils {
       printGameState(gameState)
       winPercentage(gameState)
       print("\nBack to (m)enu or (q)uit:")
+      getUserInput()
+    }
+    case (3, _) ⇒ {
+      print("\n\nBack to (m)enu or (q)uit:")
       getUserInput()
     }
     case _ ⇒ {
@@ -89,7 +91,7 @@ object CoinFlipUtils {
     print(Console.BOLD)
     print(Console.BLUE)
     if (gameState.numFlips != 0) println(f"Win Percentage: ${(gameState.numCorrect.toFloat / gameState.numFlips.toFloat) * 100.00}%1.2f" + "%")
-    else println("Win Percentage: 0.00%")
+    else println("Win Percentage: N/A")
     print(Console.RESET)
   }
 
