@@ -2,6 +2,9 @@ import CoinFlip.mainLoop
 
 import scala.io.StdIn.readLine
 import scala.util.Random
+import java.io.{File, PrintWriter}
+
+import scala.io.Source
 
 object CoinFlipUtils {
   def homeScreen(): Unit = {
@@ -58,12 +61,13 @@ object CoinFlipUtils {
     case (1, 10) ⇒ {
       printGameOver()
       printGameState(gameState)
-      winPercentage(gameState)
-      print("\nBack to (m)enu or (q)uit:")
+      val result = winPercentage(gameState)
+      highScore(result)
+      print("\nBack to (m)enu or (r)etry:")
       getUserInput()
     }
     case (3, _) ⇒ {
-      print("\n\nBack to (m)enu or (q)uit:")
+      print("\n\nBack to (m)enu or (r)etry:")
       getUserInput()
     }
     case _ ⇒ {
@@ -87,12 +91,42 @@ object CoinFlipUtils {
     print(Console.RESET)
   }
 
-  def winPercentage(gameState: GameState): Unit = {
+  def highScore(score: Double): Unit ={
+    val fileName = "highScore.txt"
+    val prevHighScore = Source.fromFile(fileName).bufferedReader().readLine().toDouble
+    print(Console.BOLD)
+    print(Console.YELLOW)
+    (score.toInt, prevHighScore.toInt) match {
+      case(s, p) if s > p ⇒ {
+        println(f"\nCongratulations :) \nNew High Score: $score%1.2f"+"%")
+        val writer = new PrintWriter(new File(fileName))
+        writer.write(f"$score%1.2f")
+        writer.close()
+      }
+      case (s, p) if s < p ⇒ {
+        println(f"\nTry Again :( \nHigh score: $prevHighScore%1.2f" + "%")
+      }
+      case (s, p) if s.equals(p) ⇒ {
+        println(f"\nWell Done! :) \nEqualled the High Score: $score%1.2f"+"%")
+      }
+    }
+    print(Console.RESET)
+  }
+
+  def winPercentage(gameState: GameState): Double = {
+    val result : Double = (gameState.numCorrect.toFloat / gameState.numFlips.toFloat) * 100.00
     print(Console.BOLD)
     print(Console.BLUE)
-    if (gameState.numFlips != 0) println(f"Win Percentage: ${(gameState.numCorrect.toFloat / gameState.numFlips.toFloat) * 100.00}%1.2f" + "%")
-    else println("Win Percentage: N/A")
-    print(Console.RESET)
+    if(gameState.numFlips != 0) {
+      println(f"Win Percentage: $result%1.2f" + "%")
+      print(Console.RESET)
+      result
+    }
+    else {
+      println("Win Percentage: N/A")
+      print(Console.RESET)
+      0.00
+    }
   }
 
   def printGameState(gameState: GameState): Unit = {

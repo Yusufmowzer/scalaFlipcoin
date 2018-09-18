@@ -1,4 +1,7 @@
-[0m[[0m[31merror[0m] [0m[0m/home/yusuf/jsanders_scala_game/src/main/scala/CoinFlip.scala:59:7: could not optimize @tailrec annotated method mainLoop: it contains a recursive call not in tail position[0m
-[0m[[0m[31merror[0m] [0m[0m      winPercentage(gameState)[0m
-[0m[[0m[31merror[0m] [0m[0m      ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/yusuf/jsanders_scala_game/src/main/scala/CoinFlipUtils.scala:106:12: patterns after a variable pattern cannot match (SLS 8.1.1)[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case _ ⇒ {[0m
+[0m[[0m[33mwarn[0m] [0m[0m           ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/yusuf/jsanders_scala_game/src/main/scala/CoinFlipUtils.scala:109:30: unreachable code due to variable pattern on line 106[0m
+[0m[[0m[33mwarn[0m] [0m[0m      case (s, p) if s < p ⇒ {[0m
+[0m[[0m[33mwarn[0m] [0m[0m                             ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m

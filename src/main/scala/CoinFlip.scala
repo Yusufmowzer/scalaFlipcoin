@@ -35,7 +35,14 @@ object CoinFlip extends App {
             homeScreen()
             selectScreen()
           }
-          case _ ⇒ {
+          case "R" ⇒ {
+            print(Console.BOLD)
+            print(Console.GREEN)
+            println("\n\n\nO  --- Best Out of 10 ---  O")
+            print(Console.RESET)
+            mainLoop(GameState(0,0), random, 1)
+          }
+            case _ ⇒ {
             val newNumFlips = gameState.numFlips
             val newNumCorrect = gameState.numCorrect
             val gameThree = 3
@@ -74,7 +81,6 @@ object CoinFlip extends App {
             println("\nGoodBye!")
             // return out of the recursion here
           }
-
           case "M" => {
             printGameOver()
             printGameState(gameState)
@@ -84,7 +90,6 @@ object CoinFlip extends App {
             homeScreen()
             selectScreen()
           }
-
           case _ ⇒ {
             val newNumFlips = gameState.numFlips
             val newNumCorrect = gameState.numCorrect
